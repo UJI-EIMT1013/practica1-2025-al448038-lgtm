@@ -130,8 +130,27 @@ public class Practica1 {
 
     //EJERCICIO 4
     public static<T> Collection<Set<T>> coverageSet2 (Set<T> u,ArrayList<Set<T>> col) {
-        //TODO
-        return null;
+        Collection<Set<T>> resultado=new HashSet<>();
+        ListIterator<Set<T>> it=col.listIterator();
+        ListIterator<Set<T>> it2=col.listIterator();
+        Set<T> pruebas = new HashSet<>();
+        while (it.hasNext()){
+            Set<T> elem = it.next();
+            while (it2.hasNext()){
+                Set<T> elem2 = it2.next();
+                pruebas.addAll(elem);
+                pruebas.addAll(elem2);
+                if(u.equals(pruebas) && !(u.equals(elem) || u.equals(elem2))){
+                    resultado.add(new HashSet<>(elem));
+                    resultado.add(new HashSet<>(elem2));
+                    return resultado;
+                }
+                pruebas.removeAll(pruebas);
+            }
+            it2=col.listIterator();
+
+        }
+        return resultado;
     }
 
 
