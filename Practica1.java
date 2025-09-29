@@ -33,9 +33,65 @@ public class Practica1 {
 
     //EJERCICIO2
     public static void separate (Set<Integer> cuadrados, Set<Integer> noCuadrados)  {
-        //TODO
-
+        Set<Integer> sicuad= new HashSet<>();
+        int datoit1;
+        int datoit4;
+        int datoit2;
+        int datoit3;
+        Iterator<Integer> it= cuadrados.iterator();
+        Iterator<Integer> it4= cuadrados.iterator();
+        Iterator<Integer> it2= noCuadrados.iterator();
+        Iterator<Integer> it3= noCuadrados.iterator();
+        while (it.hasNext()){   //comparamos elementos de cuadrados con los de cuadrados
+            datoit1=it.next();
+            while(it4.hasNext()){
+                datoit4=it4.next();
+                if(datoit4*datoit4==datoit1)
+                    sicuad.add(datoit1);
+                }
+            it4= cuadrados.iterator();
+            }
+        it=cuadrados.iterator();
+        while (it.hasNext()){   //comparamos elementos de cuadrados con los de nocuadrados
+            datoit1=it.next();
+            while(it2.hasNext()){
+                datoit2=it2.next();
+                if(datoit2*datoit2==datoit1)
+                    sicuad.add(datoit1);
+            }
+            it2= noCuadrados.iterator();
+        }
+        it=cuadrados.iterator();
+        it2=noCuadrados.iterator();
+        while (it2.hasNext()){   //comparamos elementos de nocuadrados con los de cuadrados
+            datoit2=it2.next();
+            while(it.hasNext()){
+                datoit1=it.next();
+                if(datoit1*datoit1==datoit2)
+                    sicuad.add(datoit2);
+            }
+            it= cuadrados.iterator();
+        }
+        it2=noCuadrados.iterator();
+        while (it2.hasNext()){   //comparamos elementos de nocuadrados con los de nocuadrados
+            datoit2=it2.next();
+            while(it3.hasNext()){
+                datoit3=it3.next();
+                if(datoit3*datoit3==datoit2)
+                    sicuad.add(datoit2);
+            }
+            it3= noCuadrados.iterator();
+        }
+        if(!(cuadrados.contains(1) && noCuadrados.contains(1)))
+            sicuad.remove(1);
+        noCuadrados.addAll(cuadrados);
+        noCuadrados.removeAll(sicuad);
+        cuadrados.removeAll(cuadrados);
+        cuadrados.addAll(sicuad);
     }
+
+
+
 
     //EJERCICIO 3
     public static<T> Collection<Set<T>> divideInSets (Iterator<T> it) {
@@ -52,3 +108,16 @@ public class Practica1 {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
