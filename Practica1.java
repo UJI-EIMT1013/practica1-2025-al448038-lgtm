@@ -6,8 +6,29 @@ public class Practica1 {
 
     //EJERCICIO 1
     public static Set<Integer> multiplos (Iterator<Integer> it) {
-        //TODO
-        return null;
+        int dato;
+        Set<Integer> leidos= new HashSet<>();
+        Iterator<Integer> it2 = leidos.iterator();
+        Set<Integer> devolver= new HashSet<>();
+        int dato_leidos;
+        while (it.hasNext()){
+            dato=it.next();
+            if (dato !=0){
+                while (it2.hasNext()){
+                    dato_leidos=it2.next();
+                    if(dato%dato_leidos==0){
+                        devolver.add(dato);
+                    }else{
+                        if(dato_leidos%dato==0) {
+                            devolver.add(dato_leidos);
+                        }
+                    }
+                }
+                leidos.add(dato);
+                it2 = leidos.iterator();
+            }
+        }
+        return devolver;
     }
 
     //EJERCICIO2
