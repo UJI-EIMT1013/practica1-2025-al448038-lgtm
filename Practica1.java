@@ -95,8 +95,37 @@ public class Practica1 {
 
     //EJERCICIO 3
     public static<T> Collection<Set<T>> divideInSets (Iterator<T> it) {
-        //TODO
-        return null;
+        Collection<Set<T>> result = new ArrayList<>();
+        Set<T> current = new HashSet<>();
+        List<T> resto = new LinkedList<>();
+        while (it.hasNext()) {
+            T elem = it.next();
+            if (current.contains(elem)) {
+                resto.add(elem);
+            }else {
+                current.add(elem);
+            }
+        }
+        if(! current.isEmpty())
+            result.add(new HashSet<>(current)); //primer conjunto
+        current.removeAll(current); //vaciamos conjunto
+        ListIterator<T> it2 = resto.listIterator();
+        while(! resto.isEmpty()){
+            while (it2.hasNext()){
+                T elem = it2.next();
+                int i=0;
+                if (! current.contains(elem)) {
+                    it2.remove();
+                    current.add( elem);
+                }
+            }
+
+            result.add(new HashSet<>(current));
+            current.removeAll(current);
+            it2=resto.listIterator();
+        }
+
+        return  result;
     }
 
     //EJERCICIO 4
