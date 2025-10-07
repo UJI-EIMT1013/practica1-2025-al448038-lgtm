@@ -69,11 +69,8 @@ public class Practica1 {
     //EJERCICIO 3
     public static<T> Collection<Set<T>> divideInSets (Iterator<T> it) {
         Collection<Set<T>> result = new ArrayList<>();
-        Set<T> current = new HashSet<>();
-        List<T> resto = new LinkedList<>();
         if (it.hasNext())
             result.add(new HashSet<>());
-        int num_elementos=1;
         while (it.hasNext()) {
             T elem = it.next();
             boolean añadido=false;
