@@ -7,7 +7,7 @@ public class Practica1 {
     //EJERCICIO 1
     public static Set<Integer> multiplos (Iterator<Integer> it) {
         int dato;
-        Set<Integer> leidos= new HashSet<>();
+        Set<Integer> leidos = new HashSet<>();
         Iterator<Integer> it2 = leidos.iterator();
         Set<Integer> devolver= new HashSet<>();
         int dato_leidos;
@@ -33,61 +33,34 @@ public class Practica1 {
 
     //EJERCICIO2
     public static void separate (Set<Integer> cuadrados, Set<Integer> noCuadrados)  {
-        Set<Integer> sicuad= new HashSet<>();
-        int datoit1;
-        int datoit4;
-        int datoit2;
-        int datoit3;
-        Iterator<Integer> it= cuadrados.iterator();
-        Iterator<Integer> it4= cuadrados.iterator();
-        Iterator<Integer> it2= noCuadrados.iterator();
-        Iterator<Integer> it3= noCuadrados.iterator();
-        while (it.hasNext()){   //comparamos elementos de cuadrados con los de cuadrados
-            datoit1=it.next();
-            while(it4.hasNext()){
-                datoit4=it4.next();
-                if(datoit4*datoit4==datoit1)
-                    sicuad.add(datoit1);
-                }
-            it4= cuadrados.iterator();
-            }
-        it=cuadrados.iterator();
-        while (it.hasNext()){   //comparamos elementos de cuadrados con los de nocuadrados
-            datoit1=it.next();
-            while(it2.hasNext()){
-                datoit2=it2.next();
-                if(datoit2*datoit2==datoit1)
-                    sicuad.add(datoit1);
-            }
-            it2= noCuadrados.iterator();
+        int elemento, dato;
+        Set<Integer> datos = new HashSet<>();
+        Set<Integer> sicuadrados = new HashSet<>();
+        datos.addAll(cuadrados);
+        datos.addAll(noCuadrados);
+        Iterator<Integer> itcuadrados = cuadrados.iterator();
+        Iterator<Integer> itnocuadrados = noCuadrados.iterator();
+        while (itcuadrados.hasNext()){
+            elemento=itcuadrados.next();
+            if(datos.contains(elemento*elemento))
+                sicuadrados.add(elemento*elemento);
         }
-        it=cuadrados.iterator();
-        it2=noCuadrados.iterator();
-        while (it2.hasNext()){   //comparamos elementos de nocuadrados con los de cuadrados
-            datoit2=it2.next();
-            while(it.hasNext()){
-                datoit1=it.next();
-                if(datoit1*datoit1==datoit2)
-                    sicuad.add(datoit2);
-            }
-            it= cuadrados.iterator();
+        while (itnocuadrados.hasNext()){
+            elemento=itnocuadrados.next();
+            if(datos.contains(elemento*elemento))
+                sicuadrados.add(elemento*elemento);
         }
-        it2=noCuadrados.iterator();
-        while (it2.hasNext()){   //comparamos elementos de nocuadrados con los de nocuadrados
-            datoit2=it2.next();
-            while(it3.hasNext()){
-                datoit3=it3.next();
-                if(datoit3*datoit3==datoit2)
-                    sicuad.add(datoit2);
-            }
-            it3= noCuadrados.iterator();
-        }
-        if(!(cuadrados.contains(1) && noCuadrados.contains(1)))
-            sicuad.remove(1);
-        noCuadrados.addAll(cuadrados);
-        noCuadrados.removeAll(sicuad);
+        if(cuadrados.contains(1) && noCuadrados.contains(1))
+            sicuadrados.add(1);
+        else sicuadrados.remove(1);
         cuadrados.removeAll(cuadrados);
-        cuadrados.addAll(sicuad);
+        cuadrados.addAll(sicuadrados);
+        noCuadrados.removeAll(noCuadrados);
+        datos.removeAll(sicuadrados);
+        noCuadrados.addAll(datos);
+
+        //arreglado
+
     }
 
 
@@ -98,31 +71,24 @@ public class Practica1 {
         Collection<Set<T>> result = new ArrayList<>();
         Set<T> current = new HashSet<>();
         List<T> resto = new LinkedList<>();
+        if (it.hasNext())
+            result.add(new HashSet<>());
+        int num_elementos=1;
         while (it.hasNext()) {
             T elem = it.next();
-            if (current.contains(elem)) {
-                resto.add(elem);
-            }else {
-                current.add(elem);
-            }
-        }
-        if(! current.isEmpty())
-            result.add(new HashSet<>(current)); //primer conjunto
-        current.removeAll(current); //vaciamos conjunto
-        ListIterator<T> it2 = resto.listIterator();
-        while(! resto.isEmpty()){
-            while (it2.hasNext()){
-                T elem = it2.next();
-                int i=0;
-                if (! current.contains(elem)) {
-                    it2.remove();
-                    current.add( elem);
+            boolean añadido=false;
+            for(Set<T> s : result){
+                if(!s.contains(elem)) {
+                    s.add(elem);
+                    añadido=true;
+                    break;
                 }
             }
-
-            result.add(new HashSet<>(current));
-            current.removeAll(current);
-            it2=resto.listIterator();
+            if(! añadido){
+                Set<T> t = new HashSet<>();
+                t.add(elem);
+                result.add(t);
+            }
         }
 
         return  result;
@@ -156,16 +122,4 @@ public class Practica1 {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
